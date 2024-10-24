@@ -33,11 +33,21 @@ RUN apt update && apt install -y \
     python3 -m pip install --no-cache-dir --break-system-packages olga && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
+
+RUN Rscript -e "Sys.setenv(CXX='g++'); \
+    if (!require('BiocManager', quietly = TRUE)) install.packages('BiocManager'); \
+    BiocManager::install('DropletUtils'); \
+    BiocManager::install('SingleCellExperiment'); \
+    BiocManager::install('SummarizedExperiment'); \
+    BiocManager::install('ComplexHeatmap'); \
+    if (!require('devtools', quietly = TRUE)) install.packages('devtools'); \
+    if (!require('usethis', quietly = TRUE)) install.packages('usethis');"
+
 # Set the working directory
 WORKDIR /app
 
 # Copy the R installation script to the container
-COPY docker_install.R .
+COPY . .
 
 RUN Rscript docker_install.R
 # Command to run when starting the container

@@ -31,7 +31,7 @@ install_local(".")
 # if you get asked about installing from SOURCE, select NO.
 # if asked about updating the packages, select either 1 for all, or 3 for none.
 # also run this line to check for updates
-devtools::install_local("..")
+devtools::install_local(".")
 
 # import all of the fonts to your system. Will only need to be done the first time.
 require(extrafont)
